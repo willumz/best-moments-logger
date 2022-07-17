@@ -416,6 +416,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/LibraryItem'
       operationId: get-libraryitem-libraryitemId
+    delete:
+      summary: ''
+      operationId: delete-libraryitem-libraryitemId
+      responses:
+        '200':
+          description: OK
+      description: ''
   /tmdbitem:
     get:
       summary: Your GET endpoint
