@@ -1,0 +1,531 @@
+openapi: 3.1.0
+info:
+  title: openapi
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /tag:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+      operationId: get-tag
+    post:
+      summary: Create tag
+      operationId: post-tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+  '/tag/{tagId}':
+    parameters:
+      - schema:
+          type: string
+        name: tagId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+      operationId: get-tag-tagId
+  /media:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Media'
+      operationId: get-media
+  '/media/{mediaId}':
+    parameters:
+      - schema:
+          type: string
+        name: mediaId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Media'
+      operationId: get-media-mediaId
+  '/media/{mediaId}/series':
+    parameters:
+      - schema:
+          type: string
+        name: mediaId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Series'
+      operationId: get-media-mediaId-series
+      description: Returns all series associated with the media ID
+  '/media/{mediaId}/tag':
+    parameters:
+      - schema:
+          type: string
+        name: mediaId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+      operationId: get-media-mediaId-log
+      description: Get all tags associated with media ID
+  '/media/{mediaId}/log':
+    parameters:
+      - schema:
+          type: string
+        name: mediaId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-media-mediaId-log
+  /series:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Series'
+      operationId: get-series
+  '/series/{seriesId}':
+    parameters:
+      - schema:
+          type: string
+        name: seriesId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+      operationId: get-series-seriesId
+  '/series/{seriesId}/episode':
+    parameters:
+      - schema:
+          type: string
+        name: seriesId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Episode'
+      operationId: get-series-seriesId-episode
+      description: Get all episodes associated with series ID
+  '/series/{seriesId}/tag':
+    parameters:
+      - schema:
+          type: string
+        name: seriesId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+      operationId: get-series-seriesId-tag
+      description: Get tags associated with series ID
+  /episode:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Episode'
+      operationId: get-episode
+  '/episode/{episodeId}':
+    parameters:
+      - schema:
+          type: string
+        name: episodeId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+      operationId: get-episode-episodeId
+  '/episode/{episodeId}/tag':
+    parameters:
+      - schema:
+          type: string
+        name: episodeId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Episode'
+      operationId: get-episode-episodeId-tag
+      description: Get tags associated with episode ID
+  '/episode/{episodeId}/log':
+    parameters:
+      - schema:
+          type: string
+        name: episodeId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+      operationId: get-episode-episodeId-log
+      description: Get all logs associated with episode ID
+  /log:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+      operationId: get-log
+    post:
+      summary: ''
+      operationId: post-log
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                episode_id:
+                  type: integer
+                  description: 'Send this or media_id, not both'
+                media_id:
+                  type: integer
+                  description: 'Send this or episode_id, not both'
+                note:
+                  type: string
+                  description: The accompanying note
+                time:
+                  type: integer
+                  description: Seconds since beginning of media
+  '/log/{logId}':
+    parameters:
+      - schema:
+          type: string
+        name: logId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+      operationId: get-log-logId
+  '/log/{logId}/tag':
+    parameters:
+      - schema:
+          type: string
+        name: logId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+      operationId: get-log-logId-tag
+      description: Get all tags associated with log ID
+  /libraryitem:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LibraryItem'
+      operationId: get-libraryitem
+    post:
+      summary: ''
+      operationId: post-libraryitem
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tmdb_id:
+                  type: integer
+  '/libraryitem/{libraryitemId}':
+    parameters:
+      - schema:
+          type: string
+        name: libraryitemId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryItem'
+      operationId: get-libraryitem-libraryitemId
+  /tmdbitem:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TmdbItem'
+      operationId: get-tmdbitem
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: The search parameter
+          required: true
+components:
+  schemas:
+    Media:
+      title: Media
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        image_url:
+          type: string
+        tmdb_id:
+          type: integer
+    Series:
+      title: Series
+      type: object
+      properties:
+        id:
+          type: integer
+        media_id:
+          type: integer
+        name:
+          type: string
+        image_url:
+          type: string
+        order:
+          type: integer
+        tmdb_id:
+          type: integer
+    Episode:
+      title: Episode
+      type: object
+      properties:
+        id:
+          type: integer
+        series_id:
+          type: integer
+        name:
+          type: string
+        order:
+          type: integer
+        image_url:
+          type: string
+        tmdb_id:
+          type: integer
+    Log:
+      title: Log
+      type: object
+      properties:
+        id:
+          type: integer
+        episode_id:
+          type: integer
+        media_id:
+          type: integer
+        time:
+          type: integer
+        time_created:
+          type: integer
+          description: Datetime it was created
+        note:
+          type: string
+    Tag:
+      title: Tag
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+    LibraryItem:
+      title: LibraryItem
+      type: object
+      description: A record indicating a certain media belongs to a user's library
+      properties:
+        id:
+          type: integer
+        media_id:
+          type: integer
+    TmdbItem:
+      title: TmdbItem
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        image_url:
+          type:
+            - string
+            - 'null'
