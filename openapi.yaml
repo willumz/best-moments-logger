@@ -390,6 +390,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LibraryItem'
       requestBody:
         content:
           application/json:
@@ -398,6 +402,8 @@ paths:
               properties:
                 tmdb_id:
                   type: integer
+                is_tv:
+                  type: boolean
   '/libraryitem/{libraryitemId}':
     parameters:
       - schema:
@@ -458,6 +464,8 @@ components:
           type: string
         tmdb_id:
           type: integer
+        is_tv:
+          type: boolean
     Series:
       title: Series
       type: object
