@@ -13,6 +13,7 @@ export default async function get(pool: mariadb.Pool, id: number): Promise<Media
             name: res[0].name,
             image_url: res[0].image_url,
             tmdb_id: res[0].tmdb_id,
+            is_tv: res[0].is_tv,
         };
         return media;
     } catch (err) {

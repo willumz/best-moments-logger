@@ -1,5 +1,5 @@
 import mariadb from "mariadb";
-import { Media, Series } from "../../data_models";
+import { Series } from "../../data_models";
 
 export default async function get(pool: mariadb.Pool, media_id: number): Promise<Series[] | null> {
     let conn;

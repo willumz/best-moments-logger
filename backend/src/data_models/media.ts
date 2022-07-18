@@ -3,4 +3,5 @@ export default interface Media {
     name: string;
     image_url: string;
     tmdb_id: number;
+    is_tv: boolean;
 }

@@ -1,5 +1,5 @@
 import mariadb from "mariadb";
-import { Media, Tag } from "../../data_models";
+import { Tag } from "../../data_models";
 
 export default async function get(pool: mariadb.Pool, media_id: number): Promise<Tag[] | null> {
     let conn;

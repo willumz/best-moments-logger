@@ -35,6 +35,7 @@ const CREATE_STATEMENTS = {
         \`name\` varchar(100) DEFAULT NULL,
         \`image_url\` varchar(100) DEFAULT NULL,
         \`tmdb_id\` int(11) DEFAULT NULL,
+        \`is_tv\` boolean DEFAULT NULL,
         PRIMARY KEY (\`media_id\`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     `,

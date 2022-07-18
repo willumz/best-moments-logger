@@ -1,6 +1,7 @@
 import express from "express";
 import mariadb from "mariadb";
 import { MovieDb } from "moviedb-promise";
+import bodyParser from "body-parser";
 
 import * as sql from "./database_funcs";
 import router from "./router";
@@ -26,8 +27,11 @@ sql.init(pool).then(() => {
 
     app.use(express.static("static/"));
 
+    let jsonParser = bodyParser.json();
+
     app.use(
         "/api",
+        jsonParser,
         (req, res, next) => {
             req.pool = pool; // pass pool as req object
             req.moviedb = moviedb; // pass moviedb as req object
