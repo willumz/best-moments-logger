@@ -20,7 +20,7 @@ export default async function get(
             episode_id = content_id.id;
             media_id = null;
         }
-        let datetime = Date.now();
+        let datetime = new Date(Date.now()).toISOString().slice(0, 19).replace("T", " ");
         await conn.query(
             "INSERT INTO logs (episode_id, media_id, time, note, time_created) VALUES (?, ?, ?, ?, ?);",
             [episode_id, media_id, time, note, datetime]
@@ -38,6 +38,6 @@ export default async function get(
         return log;
     } catch (err) {
         if (conn) conn.release();
-        return null;
+        throw err;
     }
 }
