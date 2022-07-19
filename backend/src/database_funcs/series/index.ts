@@ -3,5 +3,6 @@ import get from "./get";
 import getEpisodes from "./getEpisodes";
 import getTags from "./getTags";
 import create from "./create";
+import addTag from "./addTag";
 
-export { getAll, get, getEpisodes, getTags, create };
+export { getAll, get, getEpisodes, getTags, create, addTag };
