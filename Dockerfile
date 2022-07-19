@@ -1,48 +1,31 @@
-FROM node:alpine
-
-# Set environment variables
-
-ENV NODE_ENV production
-ENV PORT 80
-
-# Expose ports
-
-EXPOSE 80
-
-# Build frontend
+# Build stage
+FROM node:alpine as build-frontend
 
 WORKDIR /frontend
-
-COPY /frontend/package.json ./
-
-RUN npm install --production
-
-COPY /frontend .
-
+COPY /frontend/package.json /frontend/package-lock.json ./
+RUN npm install
+COPY /frontend ./
 RUN npm run build
 
-COPY /frontend/build .
+FROM node:alpine as build-backend
 
-# Build backend
+WORKDIR /backend
+COPY /backend/package.json /backend/package-lock.json ./
+RUN npm install
+COPY /backend ./
+RUN npm run build
+
+COPY --from=build-frontend /frontend/build /backend/static
+
+# Deploy stage
+FROM node:alpine as deploy
 
 WORKDIR /backend
 
-COPY /backend/package.json ./
+COPY --from=build-backend /backend ./
 
-RUN npm install --production
+EXPOSE 80
+ENV NODE_ENV production
+ENV PORT 80
 
-COPY /backend .
-
-RUN npm run build
-
-# Copy react build to static dir
-
-COPY /frontend/build /backend/static
-
-# Clean up unncesseary files
-
-RUN rm -rf /frontend
-
-# Run backend
-
-ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT ["npm", "start"]
