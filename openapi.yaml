@@ -129,6 +129,24 @@ paths:
                   $ref: '#/components/schemas/Tag'
       operationId: get-media-mediaId-log
       description: Get all tags associated with media ID
+    post:
+      summary: ''
+      operationId: post-media-mediaId-tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Media'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag_id:
+                  type: integer
   '/media/{mediaId}/log':
     parameters:
       - schema:
@@ -215,6 +233,24 @@ paths:
                   $ref: '#/components/schemas/Tag'
       operationId: get-series-seriesId-tag
       description: Get tags associated with series ID
+    post:
+      summary: ''
+      operationId: post-series-seriesId-tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag_id:
+                  type: integer
   /episode:
     get:
       summary: Your GET endpoint
@@ -268,6 +304,24 @@ paths:
                   $ref: '#/components/schemas/Episode'
       operationId: get-episode-episodeId-tag
       description: Get tags associated with episode ID
+    post:
+      summary: ''
+      operationId: post-episode-episodeId-tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag_id:
+                  type: integer
   '/episode/{episodeId}/log':
     parameters:
       - schema:
@@ -370,6 +424,24 @@ paths:
                   $ref: '#/components/schemas/Tag'
       operationId: get-log-logId-tag
       description: Get all tags associated with log ID
+    post:
+      summary: ''
+      operationId: post-log-logId-tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag_id:
+                  type: integer
   /libraryitem:
     get:
       summary: Your GET endpoint
