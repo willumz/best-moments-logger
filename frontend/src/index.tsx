@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import Library from "./pages/Library";
 import MediaView from "./pages/MediaView";
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -15,12 +15,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Library />} />
-          <Route path="/media/:id" element={<MediaView />} />
-        </Routes>
-      </BrowserRouter>
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Library />} />
+        <Route path="/media/:id" element={<MediaView />} />
+      </Routes>
+    </HashRouter>
     
   </React.StrictMode>
 );
