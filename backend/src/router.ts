@@ -178,77 +178,11 @@ router.post("/libraryitem", (req, res) => {
                 res.json(libraryitem);
             });
         } else {
-            if (is_tv) {
-                req.moviedb.tvInfo(tmdb_id).then((details: any) => {
-                    sql.media
-                        .create(
-                            req.pool,
-                            details.name,
-                            details.poster_path
-                                ? `https://image.tmdb.org/t/p/original${details.poster_path}`
-                                : "",
-                            details.id,
-                            true
-                        )
-                        .then(media => {
-                            details.seasons.forEach((season: any) => {
-                                sql.series
-                                    .create(
-                                        req.pool,
-                                        media.id,
-                                        season.name,
-                                        season.poster_path
-                                            ? `https://image.tmdb.org/t/p/original${season.poster_path}`
-                                            : "",
-                                        season.season_number,
-                                        season.id
-                                    )
-                                    .then(series => {
-                                        req.moviedb
-                                            .seasonInfo({
-                                                id: details.id,
-                                                season_number: season.season_number,
-                                            })
-                                            .then((season_details: any) => {
-                                                season_details.episodes.forEach((episode: any) => {
-                                                    sql.episode.create(
-                                                        req.pool,
-                                                        series.id,
-                                                        episode.name,
-                                                        episode.episode_number,
-                                                        episode.still_path
-                                                            ? `https://image.tmdb.org/t/p/original${season.still_path}`
-                                                            : "",
-                                                        episode.id
-                                                    );
-                                                });
-                                            });
-                                    });
-                            });
-                            sql.libraryitem.create(req.pool, media.id).then(libraryitem => {
-                                res.json(libraryitem);
-                            });
-                        });
+            sql.storeTmdbMedia(req.moviedb, req.pool, tmdb_id, is_tv, media => {
+                sql.libraryitem.create(req.pool, media.id).then(libraryitem => {
+                    return libraryitem;
                 });
-            } else {
-                req.moviedb.movieInfo(tmdb_id).then((details: any) => {
-                    sql.media
-                        .create(
-                            req.pool,
-                            details.title,
-                            details.poster_path
-                                ? `https://image.tmdb.org/t/p/original${details.poster_path}`
-                                : "",
-                            details.id,
-                            false
-                        )
-                        .then(media => {
-                            sql.libraryitem.create(req.pool, media.id).then(libraryitem => {
-                                res.json(libraryitem);
-                            });
-                        });
-                });
-            }
+            })
         }
     });
 });
