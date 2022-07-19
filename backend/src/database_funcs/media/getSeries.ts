@@ -8,19 +8,19 @@ export default async function get(pool: mariadb.Pool, media_id: number): Promise
         conn = await pool.getConnection();
         let res = await conn.query("SELECT * FROM series WHERE media_id = ?", [media_id]);
         if (conn) conn.release();
-        res.forEach((series: any) => {
+        res.forEach((seriesRes: any) => {
             series.push({
-                id: res[0].series_id,
-                media_id: res[0].media_id,
-                name: res[0].name,
-                image_url: res[0].image_url,
-                order: res[0].order,
-                tmdb_id: res[0].tmdb_id,
+                id: seriesRes.series_id,
+                media_id: seriesRes.media_id,
+                name: seriesRes.name,
+                image_url: seriesRes.image_url,
+                order: seriesRes.order,
+                tmdb_id: seriesRes.tmdb_id,
             });
         });
         return series;
     } catch (err) {
         if (conn) conn.release();
-        return null;
+        throw err;
     }
 }

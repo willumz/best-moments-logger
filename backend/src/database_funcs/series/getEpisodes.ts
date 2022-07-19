@@ -13,12 +13,12 @@ export default async function get(
         if (conn) conn.release();
         res.forEach((episode: any) => {
             episodes.push({
-                id: res.episode_id,
-                series_id: res.series_id,
-                name: res.name,
-                image_url: res.image_url,
-                order: res.order,
-                tmdb_id: res.tmdb_id,
+                id: episode.episode_id,
+                series_id: episode.series_id,
+                name: episode.name,
+                image_url: episode.image_url,
+                order: episode.order,
+                tmdb_id: episode.tmdb_id,
             });
         });
         return episodes;
