@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Library from "./pages/Library";
+import MediaView from "./pages/MediaView";
 import {
   BrowserRouter,
   Routes,
@@ -17,8 +17,8 @@ root.render(
   <React.StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Library />}>
-          </Route>
+          <Route path="/" element={<Library />} />
+          <Route path="/media/:id" element={<MediaView />} />
         </Routes>
       </BrowserRouter>
     
