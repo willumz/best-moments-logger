@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Episode, Log } from "../data_models";
+import { ContentId, Episode, Log } from "../data_models";
 import EpisodeThumbnail from "../components/EpisodeThumbnail";
 import LogRecord from "../components/LogRecord";
 import LogPane from "../components/LogPane";
+import LogEntry from "../components/LogEntry";
 
 const EpisodeView = () => {
     let { id } = useParams();
@@ -17,14 +18,9 @@ const EpisodeView = () => {
         order: -1,
         series_id: -1,
     });
-    const [logs, setLogs] = useState<Log[]>([]);
     useEffect(() => {
         axios.get(`/api/episode/${id}`).then(res => {
             setEpisode(res.data);
-            axios.get(`/api/episode/${id}/log`).then(res => {
-                res.data.sort((a: Log, b: Log) => a.time - b.time);
-                setLogs(res.data);
-            });
         });
     }, [id]);
     return (
@@ -35,7 +31,11 @@ const EpisodeView = () => {
                     {episode.name}
                 </p>
             </div>
-            <LogPane logs={logs} />
+            <br />
+            <LogPane content_id={{
+                id: episode.id,
+                type: ContentId.ContentIdType.Episode,
+            }} />
         </div>
     )
 }

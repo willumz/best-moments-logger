@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Log, Media, Series } from "../data_models";
+import { ContentId, Log, Media, Series } from "../data_models";
 import MediaPoster from "../components/MediaPoster";
 import SeriesPoster from "../components/SeriesPoster";
 import LogPane from "../components/LogPane";
+import LogEntry from "../components/LogEntry";
 
 const MediaView = () => {
     let { id } = useParams();
@@ -17,7 +18,6 @@ const MediaView = () => {
         is_tv: false,
     });
     const [series, setSeries] = useState<Series[]>([]);
-    const [logs, setLogs] = useState<Log[]>([]);
     const clickSeries = (series: Series) => {
       navigate(`/series/${series.id}`);
     }
@@ -30,10 +30,6 @@ const MediaView = () => {
                 setSeries(res.data);
               });
             } else {
-              axios.get(`/api/media/${id}/log`).then(res => {
-                res.data.sort((a: Log, b: Log) => a.time - b.time);
-                setLogs(res.data);
-              });
             }
         });
     }, [id]);
@@ -53,7 +49,10 @@ const MediaView = () => {
                         }
                     </div>
                 ) : (
-                  <LogPane logs={logs} />
+                  <LogPane content_id={{
+                    id: media.id,
+                    type: ContentId.ContentIdType.Media,
+                  }} />
                 )
             }
         </div>
