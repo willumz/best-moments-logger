@@ -224,7 +224,7 @@ router.post("/libraryitem", (req, res) => {
         } else {
             sql.storeTmdbMedia(req.moviedb, req.pool, tmdb_id, is_tv, media => {
                 sql.libraryitem.create(req.pool, media.id).then(libraryitem => {
-                    return libraryitem;
+                    res.json(libraryitem);
                 });
             })
         }

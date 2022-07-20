@@ -9,7 +9,7 @@ export default async function get(
     let episodes: Episode[] = [];
     try {
         conn = await pool.getConnection();
-        let res = await conn.query("SELECT * FROM episode WHERE series_id = ?", [series_id]);
+        let res = await conn.query("SELECT * FROM episodes WHERE series_id = ?", [series_id]);
         if (conn) conn.release();
         res.forEach((episode: any) => {
             episodes.push({
@@ -24,6 +24,6 @@ export default async function get(
         return episodes;
     } catch (err) {
         if (conn) conn.release();
-        return null;
+        throw err;
     }
 }
