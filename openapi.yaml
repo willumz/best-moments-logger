@@ -373,18 +373,23 @@ paths:
             schema:
               type: object
               properties:
-                episode_id:
-                  type: integer
-                  description: 'Send this or media_id, not both'
-                media_id:
-                  type: integer
-                  description: 'Send this or episode_id, not both'
                 note:
                   type: string
                   description: The accompanying note
                 time:
                   type: integer
                   description: Seconds since beginning of media
+                content_id:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    type:
+                      type: integer
+                      enum:
+                        - 0
+                        - 1
+                      description: '1 for episode, 0 for media'
   '/log/{logId}':
     parameters:
       - schema:
@@ -403,6 +408,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/Log'
       operationId: get-log-logId
+    patch:
+      summary: ''
+      operationId: patch-log-logId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+      description: Updates existing log
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content_id:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    type:
+                      type: integer
+                      enum:
+                        - 0
+                        - 1
+                note:
+                  type: string
+                time:
+                  type: integer
+    delete:
+      summary: ''
+      operationId: delete-log-logId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
   '/log/{logId}/tag':
     parameters:
       - schema:
