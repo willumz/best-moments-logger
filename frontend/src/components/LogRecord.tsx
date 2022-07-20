@@ -37,7 +37,6 @@ const LogRecord = (props: Props) => {
   }
 
   const onDelete = () => {
-    setEditing(false);
     axios.delete(`/api/log/${props.log.id}`).then(res => {
       props.deleteLog(props.log.id);
     });
@@ -59,7 +58,7 @@ const LogRecord = (props: Props) => {
         } : {
           id: props.log.media_id,
           type: ContentId.ContentIdType.Media,
-        }} pushLog={updateLog} defaultNote={props.log.note} defaultTime={props.log.time} updateRecordId={props.log.id} onDelete={onDelete} />
+        }} pushLog={updateLog} defaultNote={props.log.note} defaultTime={props.log.time} updateRecordId={props.log.id} onDelete={onDelete} small />
         )
       }
       </>

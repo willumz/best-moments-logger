@@ -68,11 +68,11 @@ const LogEntry = (props: Props) => {
 
   return (
     <div className="py-6 px-2 inline-block">
-        <input className={`rounded-md bg-slate-700 text-white text-2xl p-2 inline-block ${props.small ? "h-5" : "h-10"} align-top`} onKeyDown={keyDown} size={8} type="text" value={renderedTime} />
-        <textarea className={`rounded-md bg-slate-700 text-white text-lg p-2 inline-block ${props.small ? "h-5" : "h-10"} mx-2 align-top resize-none`} placeholder="Note..." value={note} onInput={(e: any) => setNote(e.target.value)} />
+        <input className={`rounded-md bg-slate-700 text-white ${props.small ? "text-sm" : "text-2xl"} p-2 inline-block ${props.small ? "h-7" : "h-10"} align-top`} onKeyDown={keyDown} size={8} type="text" value={renderedTime} />
+        <textarea className={`rounded-md bg-slate-700 text-white ${props.small ? "text-sm" : "text-lg"} p-2 inline-block ${props.small ? "h-7" : "h-10"} mx-2 align-top resize-none`} placeholder="Note..." value={note} onInput={(e: any) => setNote(e.target.value)} />
         <br />
-        <button className="rounded-md bg-blue-800 text-white text-lg p-2 inline-block my-2 w-20" onClick={clickBtn}>Log</button>
-        {props.onDelete && <button className="rounded-md bg-red-800 text-white text-lg p-2 inline-block my-2 w-20" onClick={props.onDelete}>Delete</button>}
+        <button className={`rounded-md bg-blue-800 text-white ${props.small ? "text-sm p-1 w-16" : "text-lg p-2 w-20"} inline-block my-2`} onClick={clickBtn}>Log</button>
+        {props.onDelete && <button className={`rounded-md bg-red-600 text-white ${props.small ? "text-sm p-1 w-16" : "text-lg p-2 w-20"} inline-block my-2 mx-2`} onClick={props.onDelete}>Delete</button>}
     </div>
   )
 }
