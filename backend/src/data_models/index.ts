@@ -5,5 +5,6 @@ import Episode from "./episode";
 import Log from "./log";
 import LibraryItem from "./libraryitem";
 import TmdbItem from "./tmdbitem";
+import * as ContentId from "./contentid";
 
-export { Tag, Media, Series, Episode, Log, LibraryItem, TmdbItem };
+export { Tag, Media, Series, Episode, Log, LibraryItem, TmdbItem, ContentId };

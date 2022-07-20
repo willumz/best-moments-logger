@@ -1,7 +1,7 @@
 import express from "express";
 
 import * as sql from "./database_funcs";
-import { TmdbItem } from "./data_models";
+import { ContentId, TmdbItem } from "./data_models";
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.get("/tag", (req, res) => {
 });
 
 router.post("/tag", (req, res) => {
-    if (!req.body.name) return res.json({ error: "No name provided" });
+    if (req.body.name === undefined) return res.json({ error: "No name provided" });
     sql.tag.create(req.pool, req.body.name).then(tag => {
         res.json(tag);
     });
@@ -59,7 +59,7 @@ router.get("/media/:id/tag", (req, res) => {
 router.post("/media/:id/tag", (req, res) => {
     let id = parseInt(req.params.id);
     if (id === NaN) return res.json({ error: "Invalid media id" });
-    if (!req.body.tag_id) return res.json({ error: "No tag_id provided" });
+    if (req.body.tag_id === undefined) return res.json({ error: "No tag_id provided" });
     let tag_id = parseInt(req.body.tag_id);
     if (tag_id === NaN) return res.json({ error: "Invalid tag_id" });
     sql.media.addTag(req.pool, id, tag_id).then(media => {
@@ -108,7 +108,7 @@ router.get("/series/:id/tag", (req, res) => {
 router.post("/series/:id/tag", (req, res) => {
     let id = parseInt(req.params.id);
     if (id === NaN) return res.json({ error: "Invalid series id" });
-    if (!req.body.tag_id) return res.json({ error: "No tag_id provided" });
+    if (req.body.tag_id === undefined) return res.json({ error: "No tag_id provided" });
     let tag_id = parseInt(req.body.tag_id);
     if (tag_id === NaN) return res.json({ error: "Invalid tag_id" });
     sql.series.addTag(req.pool, id, tag_id).then(series => {
@@ -141,7 +141,7 @@ router.get("/episode/:id/tag", (req, res) => {
 router.post("/episode/:id/tag", (req, res) => {
     let id = parseInt(req.params.id);
     if (id === NaN) return res.json({ error: "Invalid episode id" });
-    if (!req.body.tag_id) return res.json({ error: "No tag_id provided" });
+    if (req.body.tag_id === undefined) return res.json({ error: "No tag_id provided" });
     let tag_id = parseInt(req.body.tag_id);
     if (tag_id === NaN) return res.json({ error: "Invalid tag_id" });
     sql.episode.addTag(req.pool, id, tag_id).then(episode => {
@@ -164,14 +164,12 @@ router.get("/log", (req, res) => {
 });
 
 router.post("/log", (req, res) => {
-    if (!req.body.media_id && !req.body.episode_id)
-        return res.json({ error: "No media_id or episode_id provided" });
-    if (req.body.media_id && req.body.episode_id)
-        return res.json({ error: "Both media_id and episode_id provided" });
-    if (!req.body.time) return res.json({ error: "No time provided" });
-    let content_id: { id: number; type: 0 | 1 }; // 0 = media, 1 = episode
-    if (req.body.media_id) content_id = { id: parseInt(req.body.media_id), type: 0 };
-    else content_id = { id: parseInt(req.body.episode_id), type: 1 };
+    if (req.body.content_id === undefined)
+        return res.json({ error: "No content_id provided" });
+    if (req.body.content_id.type !== ContentId.ContentIdType.Episode && req.body.content_id.type !== ContentId.ContentIdType.Media) return res.json({ error: "Invalid content_id" });
+    if (req.body.time === undefined) return res.json({ error: "No time provided" });
+    let content_id: ContentId.ContentId;
+    content_id = req.body.content_id;
     if (content_id.id === NaN) return res.json({ error: "Invalid media/episode id" });
     sql.log.create(req.pool, content_id, req.body.note || "", req.body.time).then(log => {
         res.json(log);
@@ -186,6 +184,24 @@ router.get("/log/:id", (req, res) => {
     });
 });
 
+router.patch("/log/:id", (req, res) => {
+    let id = parseInt(req.params.id);
+    if (id === NaN) return res.json({ error: "Invalid log id" });
+    if (req.body.note === undefined) req.body.note = null;
+    if (req.body.time === undefined) req.body.time = null;
+    sql.log.update(req.pool, id, req.body.content_id, req.body.note, req.body.time).then(log => {
+        res.json(log);
+    });
+});
+
+router.delete("/log/:id", (req, res) => {
+    let id = parseInt(req.params.id);
+    if (id === NaN) return res.json({ error: "Invalid log id" });
+    sql.log.delete_row(req.pool, id).then(() => {
+        res.json(true);
+    });
+});
+
 router.get("/log/:id/tag", (req, res) => {
     let id = parseInt(req.params.id);
     if (id === NaN) return res.json({ error: "Invalid log id" });
@@ -197,7 +213,7 @@ router.get("/log/:id/tag", (req, res) => {
 router.post("/log/:id/tag", (req, res) => {
     let id = parseInt(req.params.id);
     if (id === NaN) return res.json({ error: "Invalid log id" });
-    if (!req.body.tag_id) return res.json({ error: "No tag_id provided" });
+    if (req.body.tag_id === undefined) return res.json({ error: "No tag_id provided" });
     let tag_id = parseInt(req.body.tag_id);
     if (tag_id === NaN) return res.json({ error: "Invalid tag_id" });
     sql.log.addTag(req.pool, id, tag_id).then(log => {
