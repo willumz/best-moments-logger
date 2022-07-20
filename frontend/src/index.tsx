@@ -9,6 +9,8 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import SeriesView from './pages/SeriesView';
+import EpisodeView from './pages/EpisodeView';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,6 +21,8 @@ root.render(
       <Routes>
         <Route path="/" element={<Library />} />
         <Route path="/media/:id" element={<MediaView />} />
+        <Route path="/series/:id" element={<SeriesView />} />
+        <Route path="/episode/:id" element={<EpisodeView />} />
       </Routes>
     </HashRouter>
     
