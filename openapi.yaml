@@ -147,6 +147,33 @@ paths:
               properties:
                 tag_id:
                   type: integer
+  '/media/{mediaId}/tag/{tagId}':
+    parameters:
+      - schema:
+          type: string
+        name: tagId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: mediaId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-log-logId-tag-tagId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Media'
   '/media/{mediaId}/log':
     parameters:
       - schema:
@@ -251,6 +278,33 @@ paths:
               properties:
                 tag_id:
                   type: integer
+  '/series/{seriesId}/tag/{tagId}':
+    parameters:
+      - schema:
+          type: string
+        name: tagId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: seriesId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-log-logId-tag-tagId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
   /episode:
     get:
       summary: Your GET endpoint
@@ -322,6 +376,33 @@ paths:
               properties:
                 tag_id:
                   type: integer
+  '/episode/{episodeId}/tag/{tagId}':
+    parameters:
+      - schema:
+          type: string
+        name: tagId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: episodeId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-log-logId-tag-tagId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
   '/episode/{episodeId}/log':
     parameters:
       - schema:
@@ -489,6 +570,28 @@ paths:
                 tag_id:
                   type: integer
       description: Add tag to log
+  '/log/{logId}/tag/{tagId}':
+    parameters:
+      - schema:
+          type: string
+        name: logId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: tagId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-log-logId-tag-tagId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
   /libraryitem:
     get:
       summary: Your GET endpoint
