@@ -9,6 +9,10 @@ export default async function delete_row(
     try {
         conn = await pool.getConnection();
         await conn.query(
+            "DELETE FROM tag_log WHERE log_id = ?;",
+            [id]
+        );
+        await conn.query(
             "DELETE FROM logs WHERE log_id = ?;",
             [id]
         );
