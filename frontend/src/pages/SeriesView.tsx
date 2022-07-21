@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Episode, Series } from "../data_models";
 import SeriesPoster from "../components/SeriesPoster";
 import EpisodeThumbnail from "../components/EpisodeThumbnail";
+import TagBar from "../components/TagBar";
 
 const SeriesView = () => {
     let { id } = useParams();
@@ -37,6 +38,7 @@ const SeriesView = () => {
                     {series.name}
                 </p>
             </div>
+            <TagBar className="my-2 overflow-hidden" id={series.id} apiResource="series" />
             <div className="grid grid-cols-auto-fill gap-5 my-10">
                 {
                     episodes.map(e => (<EpisodeThumbnail key={e.id} episode={e} onClick={clickEpisode} className="hover:drop-shadow-[0_35px_35px_rgba(51,65,85,0.25)] hover:text-blue-500" caption />))

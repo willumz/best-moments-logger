@@ -6,6 +6,7 @@ import EpisodeThumbnail from "../components/EpisodeThumbnail";
 import LogRecord from "../components/LogRecord";
 import LogPane from "../components/LogPane";
 import LogEntry from "../components/LogEntry";
+import TagBar from "../components/TagBar";
 
 const EpisodeView = () => {
     let { id } = useParams();
@@ -31,6 +32,7 @@ const EpisodeView = () => {
                     {episode.name}
                 </p>
             </div>
+            <TagBar className="my-2 overflow-hidden" id={episode.id} apiResource="episode" />
             <br />
             <LogPane content_id={{
                 id: episode.id,

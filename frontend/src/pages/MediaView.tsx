@@ -6,6 +6,7 @@ import MediaPoster from "../components/MediaPoster";
 import SeriesPoster from "../components/SeriesPoster";
 import LogPane from "../components/LogPane";
 import LogEntry from "../components/LogEntry";
+import TagBar from "../components/TagBar";
 
 const MediaView = () => {
     let { id } = useParams();
@@ -41,6 +42,7 @@ const MediaView = () => {
                     {media.name}
                 </p>
             </div>
+            <TagBar className="my-2 overflow-hidden" id={media.id} apiResource="media" />
             {
                 media.is_tv ? (
                     <div className="grid grid-cols-auto-fill gap-5 my-10">
