@@ -28,11 +28,11 @@ const EpisodeView = () => {
         <div className="bg-slate-900 w-full min-w-screen min-h-screen h-full p-20">
             <div className="inline-block">
                 <EpisodeThumbnail className="inline float-left" episode={episode}/>
-                <p className="text-white text-[4rem] inline align-top p-[3rem]">
-                    {episode.name}
-                </p>
+                <div className="text-white inline-block align-top py-[3rem] md:p-[3rem]">
+                    <text className="break-normal text-white text-[8vw] md:text-[4rem]">{episode.name}</text>
+                </div>
             </div>
-            <TagBar className="my-2 overflow-hidden" id={episode.id} apiResource="episode" />
+            <TagBar className="my-2 overflow-hidden break-words" id={episode.id} apiResource="episode" />
             <br />
             <LogPane content_id={{
                 id: episode.id,

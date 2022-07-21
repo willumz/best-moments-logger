@@ -34,11 +34,11 @@ const SeriesView = () => {
         <div className="bg-slate-900 w-full min-w-screen min-h-screen h-full p-20">
             <div className="inline-block">
                 <SeriesPoster className="inline float-left" series={series}/>
-                <p className="text-white text-[4rem] inline align-top p-[3rem]">
-                    {series.name}
-                </p>
+                <div className="text-white inline-block align-top py-[3rem] md:p-[3rem]">
+                    <text className="break-normal text-white text-[8vw] md:text-[4rem]">{series.name}</text>
+                </div>
             </div>
-            <TagBar className="my-2 overflow-hidden" id={series.id} apiResource="series" />
+            <TagBar className="my-2 overflow-hidden break-words" id={series.id} apiResource="series" />
             <div className="grid grid-cols-auto-fill gap-5 my-10">
                 {
                     episodes.map(e => (<EpisodeThumbnail key={e.id} episode={e} onClick={clickEpisode} className="hover:drop-shadow-[0_35px_35px_rgba(51,65,85,0.25)] hover:text-blue-500" caption />))

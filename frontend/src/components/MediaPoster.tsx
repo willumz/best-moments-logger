@@ -8,7 +8,7 @@ interface Props {
 
 const MediaPoster = (props: Props) => {
   return (
-    <img className={`sm:w-full md:w-96 rounded-lg ${props.className}`} src={props.media.image_url} alt={`${props.media.name} Poster`}></img>
+    <img className={`w-full md:w-96 rounded-lg ${props.className}`} src={props.media.image_url} alt={`${props.media.name} Poster`}></img>
   )
 }
 

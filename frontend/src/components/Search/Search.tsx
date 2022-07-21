@@ -41,7 +41,7 @@ export default class Search extends Component<Props, State> {
     }
     render() {
         return (
-            <div className="inline-block max-w-[20%] mr-2 align-middle float-right">
+            <div className="inline-block mr-2 align-middle float-right">
                 <SearchBar
                     setSearch={this.setSearch}
                     onFocus={this.onSearchFocus}

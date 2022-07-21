@@ -56,7 +56,7 @@ const LogRecord = (props: Props) => {
           <div className="text-white text-lg inline align-middle">{trimNote(props.log.note)}</div>
           <TagBar innerElements={
             [(<i className="bi bi-pencil-fill inline text-white px-2 hover:text-blue-300 float-right align-middle" onClick={editRecord}></i>)]
-          } id={props.log.id} apiResource="log" />
+          } id={props.log.id} apiResource="log" className="my-2 overflow-hidden break-words" />
         </div>
       ) : (
         <LogEntry content_id={ props.log.media_id === null ? {

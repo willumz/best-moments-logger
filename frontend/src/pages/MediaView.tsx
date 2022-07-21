@@ -38,11 +38,11 @@ const MediaView = () => {
         <div className="bg-slate-900 w-full min-w-screen min-h-screen h-full p-20">
             <div className="inline-block">
                 <MediaPoster className="inline" media={media}/>
-                <p className="text-white text-[4rem] inline align-top p-[3rem]">
-                    {media.name}
-                </p>
+                <div className="text-white inline-block align-top py-[3rem] md:p-[3rem]">
+                    <text className="break-normal text-white text-[8vw] md:text-[4rem]">{media.name}</text>
+                </div>
             </div>
-            <TagBar className="my-2 overflow-hidden" id={media.id} apiResource="media" />
+            <TagBar className="my-2 overflow-hidden break-words" id={media.id} apiResource="media" />
             {
                 media.is_tv ? (
                     <div className="grid grid-cols-auto-fill gap-5 my-10">
