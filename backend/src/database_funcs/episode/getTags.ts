@@ -16,15 +16,15 @@ export default async function get(pool: mariadb.Pool, episode_id: number): Promi
             [episode_id]
         );
         if (conn) conn.release();
-        res.forEach((tags: any) => {
+        res.forEach((tagsRes: any) => {
             tags.push({
-                id: tags.tag_id,
-                name: tags.name,
+                id: tagsRes.tag_id,
+                name: tagsRes.name,
             });
         });
         return tags;
     } catch (err) {
         if (conn) conn.release();
-        return null;
+        throw err;
     }
 }
