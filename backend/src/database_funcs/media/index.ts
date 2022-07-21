@@ -6,5 +6,6 @@ import getLogs from "./getLogs";
 import checkTmdbPresent from "./checkTmdbPresent";
 import create from "./create";
 import addTag from "./addTag";
+import removeTag from "./removeTag";
 
-export { get, getAll, getSeries, getTags, getLogs, checkTmdbPresent, create, addTag };
+export { get, getAll, getSeries, getTags, getLogs, checkTmdbPresent, create, addTag, removeTag };

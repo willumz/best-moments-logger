@@ -5,5 +5,6 @@ import create from "./create";
 import addTag from "./addTag";
 import update from "./update";
 import delete_row from "./delete";
+import removeTag from "./removeTag";
 
-export { get, getAll, getTags, create, addTag, update, delete_row };
+export { get, getAll, getTags, create, addTag, update, delete_row, removeTag };

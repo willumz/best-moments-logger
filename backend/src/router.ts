@@ -56,6 +56,16 @@ router.get("/media/:id/tag", (req, res) => {
     });
 });
 
+router.delete("/media/:id/tag/:tag_id", (req, res) => {
+    let id = parseInt(req.params.id);
+    if (id === NaN) return res.json({ error: "Invalid id" });
+    let tag_id = parseInt(req.params.tag_id);
+    if (tag_id === NaN) return res.json({ error: "Invalid tag id" });
+    sql.media.removeTag(req.pool, id, tag_id).then(() => {
+        res.json(true);
+    });
+});
+
 router.post("/media/:id/tag", (req, res) => {
     let id = parseInt(req.params.id);
     if (id === NaN) return res.json({ error: "Invalid media id" });
@@ -105,6 +115,16 @@ router.get("/series/:id/tag", (req, res) => {
     });
 });
 
+router.delete("/series/:id/tag/:tag_id", (req, res) => {
+    let id = parseInt(req.params.id);
+    if (id === NaN) return res.json({ error: "Invalid id" });
+    let tag_id = parseInt(req.params.tag_id);
+    if (tag_id === NaN) return res.json({ error: "Invalid tag id" });
+    sql.series.removeTag(req.pool, id, tag_id).then(() => {
+        res.json(true);
+    });
+});
+
 router.post("/series/:id/tag", (req, res) => {
     let id = parseInt(req.params.id);
     if (id === NaN) return res.json({ error: "Invalid series id" });
@@ -146,6 +166,16 @@ router.post("/episode/:id/tag", (req, res) => {
     if (tag_id === NaN) return res.json({ error: "Invalid tag_id" });
     sql.episode.addTag(req.pool, id, tag_id).then(episode => {
         res.json(episode);
+    });
+});
+
+router.delete("/episode/:id/tag/:tag_id", (req, res) => {
+    let id = parseInt(req.params.id);
+    if (id === NaN) return res.json({ error: "Invalid id" });
+    let tag_id = parseInt(req.params.tag_id);
+    if (tag_id === NaN) return res.json({ error: "Invalid tag id" });
+    sql.episode.removeTag(req.pool, id, tag_id).then(() => {
+        res.json(true);
     });
 });
 
@@ -218,6 +248,16 @@ router.post("/log/:id/tag", (req, res) => {
     if (tag_id === NaN) return res.json({ error: "Invalid tag_id" });
     sql.log.addTag(req.pool, id, tag_id).then(log => {
         res.json(log);
+    });
+});
+
+router.delete("/log/:id/tag/:tag_id", (req, res) => {
+    let id = parseInt(req.params.id);
+    if (id === NaN) return res.json({ error: "Invalid id" });
+    let tag_id = parseInt(req.params.tag_id);
+    if (tag_id === NaN) return res.json({ error: "Invalid tag id" });
+    sql.log.removeTag(req.pool, id, tag_id).then(() => {
+        res.json(true);
     });
 });
 
