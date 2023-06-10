@@ -270,10 +270,11 @@ router.get("/libraryitem", (req, res) => {
 router.post("/libraryitem", (req, res) => {
     let tmdb_id = parseInt(req.body.tmdb_id);
     let is_tv = req.body.is_tv;
+    let force_update = req.body.force_update;
     if (tmdb_id === NaN) res.json({ error: "Invalid tmdb_id" });
     if (is_tv === undefined) res.json({ error: "No is_tv provided" });
     sql.media.checkTmdbPresent(req.pool, tmdb_id, is_tv).then(id => {
-        if (id) {
+        if (id && !force_update) {
             sql.libraryitem.create(req.pool, id).then(libraryitem => {
                 res.json(libraryitem);
             });
