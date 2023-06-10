@@ -26,7 +26,7 @@ export default async function get(
                 [name, image_url, order, check[0].episode_id]
             );
             res = await conn.query(
-                "SELECT * FROM series WHERE episode_id = ?",
+                "SELECT * FROM episodes WHERE episode_id = ?",
                 [check[0].episode_id]
             );
         } else {
