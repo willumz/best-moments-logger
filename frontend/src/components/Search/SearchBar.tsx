@@ -26,6 +26,7 @@ export default class SearchBar extends Component<Props, State> {
         this.setValue(event.target.value)
     }
     componentDidUpdate(prevProps: Props) {
+        console.log("a", this.props.clearSearch, prevProps.clearSearch);
         if (this.props.clearSearch && prevProps.clearSearch)
             if (this.props.clearSearch > prevProps.clearSearch) {
                 console.log(this.props.clearSearch, prevProps.clearSearch)

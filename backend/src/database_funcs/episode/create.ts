@@ -13,11 +13,29 @@ export default async function get(
     let episode: Episode;
     try {
         conn = await pool.getConnection();
-        await conn.query(
-            "INSERT INTO episodes (series_id, name, `order`, image_url, tmdb_id) VALUES (?, ?, ?, ?, ?);",
-            [series_id, name, order, image_url, tmdb_id]
+        // Check if exists
+        let check = await conn.query(
+            "SELECT * FROM episodes WHERE tmdb_id = ? AND series_id = ?",
+            [tmdb_id, series_id]
         );
-        let res = await conn.query("SELECT * from episodes WHERE episode_id = LAST_INSERT_ID();");
+        let res;
+        if (check.length > 0) {
+            // If exists update instead of creating new
+            await conn.query(
+                "UPDATE episodes SET name = ?, image_url = ?, `order` = ? WHERE episode_id = ?",
+                [name, image_url, order, check[0].episode_id]
+            );
+            res = await conn.query(
+                "SELECT * FROM series WHERE episode_id = ?",
+                [check[0].episode_id]
+            );
+        } else {
+            await conn.query(
+                "INSERT INTO episodes (series_id, name, `order`, image_url, tmdb_id) VALUES (?, ?, ?, ?, ?);",
+                [series_id, name, order, image_url, tmdb_id]
+            );
+            res = await conn.query("SELECT * from episodes WHERE episode_id = LAST_INSERT_ID();");
+        }
         if (conn) conn.release();
         episode = {
             id: res[0].episode_id,
