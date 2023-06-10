@@ -9,10 +9,23 @@ export default async function get(
     let libraryitem: LibraryItem;
     try {
         conn = await pool.getConnection();
-        await conn.query("INSERT INTO libraryitem (media_id) VALUES (?);", [media_id]);
-        let res = await conn.query(
-            "SELECT * from libraryitem WHERE libraryitem_id = LAST_INSERT_ID();"
+        let check = await conn.query(
+            "SELECT * FROM libraryitem WHERE media_id = ?",
+            [media_id]
         );
+        let res;
+        if (check.length > 0) {
+            // If exists update instead of creating new
+            res = await conn.query(
+                "SELECT * FROM libraryitem WHERE libraryitem_id = ?",
+                [check[0].libraryitem_id]
+            );
+        } else {
+            await conn.query("INSERT INTO libraryitem (media_id) VALUES (?);", [media_id]);
+            res = await conn.query(
+                "SELECT * from libraryitem WHERE libraryitem_id = LAST_INSERT_ID();"
+            );
+        }
         if (conn) conn.release();
         libraryitem = {
             id: res[0].libraryitem_id,
